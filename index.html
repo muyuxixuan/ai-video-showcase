@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的AI视频作品集</title>
+    <style>
+        :root {
+            --bg-color: #0f0f11;
+            --card-bg: #1a1a1d;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent-color: #007bff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 1rem 1rem;
+            background: linear-gradient(to bottom, #1a1a1d, #0f0f11);
+        }
+
+        h1 { margin: 0; font-size: 2.5rem; letter-spacing: 2px; }
+        p.subtitle { color: var(--text-secondary); margin-top: 10px; }
+
+        .main-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1.5rem 0;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #333;
+        }
+
+        .main-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .main-nav a:hover, .main-nav a.active {
+            color: var(--accent-color);
+            border-bottom-color: var(--accent-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .video-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            border: 1px solid #333;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        video {
+            width: 100%;
+            display: block;
+            background: #000;
+        }
+
+        .card-content { padding: 1.5rem; }
+
+        .video-title {
+            font-size: 1.2rem;
+            margin: 0 0 1rem 0;
+            font-weight: 600;
+        }
+
+        .prompt-box {
+            background: #252529;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            position: relative;
+        }
+
+        .prompt-label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #333;
+            border: none;
+            color: #fff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background 0.2s;
+        }
+
+        .copy-btn:hover { background: var(--accent-color); }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>AI 创想视界</h1>
+    <p class="subtitle">探索生成式AI的无限可能 | Prompt Showcase 作品集作者：淦</p>
+    
+    <nav class="main-nav">
+        <a href="index.html" class="active">视频作品 (Videos)</a>
+        <a href="images.html">产品图集 (Images)</a>
+    </nav>
+</header>
+
+<main class="container">
+
+    <!-- 视频 1：已修复路径 -->
+    <article class="video-card">
+        <video controls poster="videos/cover1.jpg">
+            <!-- 注意：这里加上了 videos/ -->
+            <source src="videos/sora_video_20251127_174747.mp4" type="video/mp4">
+            您的浏览器不支持视频播放。
+        </video>
+        <div class="card-content">
+            <h2 class="video-title">素人妈妈种草分享婴儿学步车（UGC感）</h2>
+            <div class="prompt-box">
+                <span class="prompt-label">Prompt / 提示词</span>
+                <p id="prompt1">Baby Walker Lifestyle Share (BIUSIKAN | Standing-Bend Grow-with-Me Demo + Cut). 100% original footage, 9:16 aspect ratio, full-screen. Two shots total: 0-10s fixed camera one continuous shot; 11-15s quick cut.0-10s: Mom pushes empty BIUSIKAN walker into frame center, stands and bends forward—wears sportswear, simple living room decor (throw pillows, potted greenery) in background. Mom (warm, relatable tone): "Mamas, this 6-in-1 walker grows with baby! Bounce mode for toddlers (presses seat softly), push mode for walkers (glides walker gently). It has interactive music lights (presses panel, lights flash), 2-speed control (taps dial), and a removable snack tray—super practical!"11-15s: [Quick cut to sunlit play area] Baby sits in the walker, barefoot and giggling, walking forward while turning smoothly—toys scattered nearby, walker’s swivel wheels gliding effortlessly. Text overlay: "6 Modes + Grow-with-Me + Practical!" + brand logo. Mom (off-camera, cheerful tone): "Grab yours now—link in bio!".</p>
+                <button class="copy-btn" onclick="copyText('prompt1')">复制</button>
+            </div>
+        </div>
+    </article>
+
+    <!-- 视频 2：已修复路径 -->
+    <article class="video-card">
+        <video controls>
+            <!-- 注意：这里加上了 videos/ -->
+            <source src="videos/12月2日 (2).mp4" type="video/mp4">
+        </video>
+        <div class="card-content">
+            <h2 class="video-title">婴儿学步车3D动画广告</h2>
+            <div class="prompt-box">
+                <span class="prompt-label">Prompt / 提示词</span>
+                <p id="prompt2">Subject: A surreal, dreamy commercial featuring the BIUSIKAN baby walker floating in a sky made of soft pink and white clouds. 9:16 aspect ratio. 3D Animation style. Input Reference: Use the uploaded product image to accurately render the walker's shape, the music tray, and the wheels. 0-5s (The Soft Landing): The BIUSIKAN walker slowly descends from the sky and lands on a giant, fluffy cloud. The wheels touch the cloud, and it bounces softly, visualizing the "shock absorption" and comfort. 5-10s (The Glide): The walker glides forward through the air. The wheels rotate smoothly. Bubbles float out from the music tray area, creating a magical atmosphere. The movement is incredibly smooth to symbolize the "easy glide" feature. 10-15s (The Close-up): Camera zooms in on the music tray (match the uploaded image details). The lights on the tray twinkle in sync with the dreamy atmosphere. Text appears in 3D among the clouds: "Walking on Clouds. BIUSIKAN."</p>
+                <button class="copy-btn" onclick="copyText('prompt2')">复制</button>
+            </div>
+        </div>
+    </article>
+
+    <!-- 视频 3：已修复路径 -->
+    <article class="video-card">
+        <video controls>
+            <!-- 注意：这里加上了 videos/ -->
+            <source src="videos/FlashVSR_00001-audio.mp4" type="video/mp4">
+        </video>
+        <div class="card-content">
+            <h2 class="video-title">硬核婴儿手推车广告宣传片</h2>
+            <div class="prompt-box">
+                <span class="prompt-label">Prompt / 提示词</span>
+                <p id="prompt3">6-in-1 Convertible Baby Stroller with Bassinet Mode - Toddler Stroller w/Footmuff, Rain Cover, Cup Holder & Large Storage, Newborn Stroller w/All-Scene Large Wheels, Reversible Seat(Black).</p>
+                <button class="copy-btn" onclick="copyText('prompt3')">复制</button>
+            </div>
+        </div>
+    </article>
+
+    <!-- 视频 4：已修复路径 & ID -->
+    <article class="video-card">
+        <video controls>
+            <!-- 注意：这里加上了 videos/ -->
+            <source src="videos/sora_video_20251202_104745.mp4" type="video/mp4">
+        </video>
+        <div class="card-content">
+            <h2 class="video-title">婴儿学步车广告 - 安全与活力篇</h2>
+            <div class="prompt-box">
+                <span class="prompt-label">Prompt / 提示词</span>
+                <!-- 这里修改了id，从 prompt3 改为 prompt4 -->
+                <p id="prompt4">Subject: A high-energy, colorful video focusing on the stability and music features of the BIUSIKAN baby walker. 9:16 aspect ratio. Input Reference: Strictly maintain the wide base chassis design from the uploaded image. Visual Narrative: A "Safety vs. Energy" contrast. 0-5s (The Party Mode): Close-up on the music toy tray. The buttons are being pressed (by invisible hands or baby hands), and the tray lights up with colorful LED rhythms. The atmosphere turns into a mini disco with fun lighting effects reflecting off the plastic. 5-10s (The Bounce Test): The camera pulls back to show the whole walker. A baby (or a cute energetic puppy) is bouncing vigorously inside the seat. The seat springs up and down dynamically, BUT the wide bottom chassis stays glued to the floor. 10-15s (The Safety Shield): A glowing, semi-transparent blue "shield" graphic effects briefly appears around the base of the walker, visualizing the "Anti-Rollover Protection." Text overlay pops up with a shield icon: "Safety First. Zero Tipping." The walker stays rock solid.</p>
+                <button class="copy-btn" onclick="copyText('prompt4')">复制</button>
+            </div>
+        </div>
+    </article>
+
+ <!-- 视频 5：已修复路径 & ID -->
+    <article class="video-card">
+        <video controls>
+            <!-- 注意：这里加上了 videos/ -->
+            <source src="videos/user-cDFA3hbi4k15zr9VxlIaKPzz_gen_01kbhphd57ecb8zt7949srmgpw.mp4" type="video/mp4">
+        </video>
+        <div class="card-content">
+            <h2 class="video-title">迪卡侬外套</h2>
+            <div class="prompt-box">
+                <span class="prompt-label">Prompt / 提示词</span>
+                <!-- 这里修改了id，从 prompt3 改为 prompt4 -->
+                <p id="prompt5"></p>
+                <button class="copy-btn" onclick="copyText('prompt5')">复制</button>
+            </div>
+        </div>
+    </article>
+
+<!-- 视频 6：已修复路径 & ID -->
+    <article class="video-card">
+        <video controls>
+            <!-- 注意：这里加上了 videos/ -->
+            <source src="videos/sora_video_20251203_115448.mp4" type="video/mp4">
+        </video>
+        <div class="card-content">
+            <h2 class="video-title">Vlog式日常出行-婴儿手推车</h2>
+            <div class="prompt-box">
+                <span class="prompt-label">Prompt / 提示词</span>
+                <!-- 这里修改了id，从 prompt3 改为 prompt4 -->
+                <p id="prompt6"></p>
+                <button class="copy-btn" onclick="copyText('prompt6')">复制</button>
+            </div>
+        </div>
+    </article>
+
+<!-- 视频 7：已修复路径 & ID -->
+    <article class="video-card">
+        <video controls>
+            <!-- 注意：这里加上了 videos/ -->
+            <source src="videos/12月3日.mp4" type="video/mp4">
+        </video>
+        <div class="card-content">
+            <h2 class="video-title">家庭亲子乐趣-婴儿学步车</h2>
+            <div class="prompt-box">
+                <span class="prompt-label">Prompt / 提示词</span>
+                <!-- 这里修改了id，从 prompt3 改为 prompt4 -->
+                <p id="prompt7">Subject: A hilarious 10-second home video clip of a toddler cosplaying as a "Bucket Head Zombie" inside the BIUSIKAN baby walker. 9:16 aspect ratio.
+
+Input Reference: Use the uploaded walker image. The focus is on the funny interaction, not just the product.
+
+Visual Narrative:
+
+0-5s: A cute toddler is sitting in the walker. They are wearing a silver metal bucket upside down on their head like a helmet (eyes are covered, creating a comedic blind effect). The toddler raises both arms forward like a zombie.
+
+5-10s: The toddler starts "chasing" the camera man (Dad). The walker glides effortlessly across the living room floor. The movement is funny and wobbly but fast. The baby makes a cute grasping motion.
+
+Style & Atmosphere: Amateur phone camera style, shaky handheld feel, bright indoor lighting. Pure comedy.</p>
+                <button class="copy-btn" onclick="copyText('prompt7')">复制</button>
+            </div>
+        </div>
+    </article>
+
+<!-- 视频 8：已修复路径 & ID -->
+    <article class="video-card">
+        <video controls>
+            <!-- 注意：这里加上了 videos/ -->
+            <source src="videos/sora_video_20251203_100702.mp4" type="video/mp4">
+        </video>
+        <div class="card-content">
+            <h2 class="video-title">史诗级大片氛围感-婴儿手推车</h2>
+            <div class="prompt-box">
+                <span class="prompt-label">Prompt / 提示词</span>
+                <!-- 这里修改了id，从 prompt3 改为 prompt4 -->
+                <p id="prompt8"></p>
+                <button class="copy-btn" onclick="copyText('prompt8')">复制</button>
+            </div>
+        </div>
+    </article>
+
+<!-- 视频 9：已修复路径 & ID -->
+    <article class="video-card">
+        <video controls>
+            <!-- 注意：这里加上了 videos/ -->
+            <source src="videos/sora_video_20251201_143402.mp4" type="video/mp4">
+        </video>
+        <div class="card-content">
+            <h2 class="video-title">婴儿手推车公路片-美国亚利桑那州大峡谷</h2>
+            <div class="prompt-box">
+                <span class="prompt-label">Prompt / 提示词</span>
+                <!-- 这里修改了id，从 prompt3 改为 prompt4 -->
+                <p id="prompt9">Road Movie Style - Mom & Baby Stroller at Arizona Grand Canyon TikTok Style. 9:16 vertical frame, full-screen visuals throughout. No freezing frames. Video includes casual mom dialogue + ambient sounds. The stroller remains unchanged in appearance (no original reference image shown in video). Do NOT show folding, handle adjustment, or cradle direction adjustment (cut to change direction).0-3s:Scene: Mom pushes the stroller (baby sitting in cradle mode, wearing a sunhat) along the Grand Canyon’s South Rim trail, with the vast canyon landscape stretching in the background.Dialogue (Mom, amazed): “This view is breathtaking—and the stroller glides so well on gravel trails!”Sound/SFX: ASMR gravel trail roll + distant wind + baby’s babble
+3-8s:Scene: The stroller moves steadily over the trail’s loose gravel and small rock patches, staying stable even on gentle inclines. Mom stops to let the camera capture the canyon and the stroller.Dialogue (Mom, grinning): “Even on gravel inclines, it’s so easy to control—perfect for our road trip!”Sound/SFX: Incline roll + wind howling softly
+8-15s:Scene: Cut to the stroller (baby lying down, napping) moving along a paved section of the trail, with colorful canyon cliffs in the background. The stroller glides over the pavement smoothly.Text Overlay: Gravel/Incline Stability + Road Trip EssentialSound/SFX: Pavement roll + distant tourist laughs + wind rustle</p>
+                <button class="copy-btn" onclick="copyText('prompt9')">复制</button>
+            </div>
+        </div>
+    </article>
+
+</main>
+
+<footer>
+    <p>© 2025 Created by Gemini Business Agent</p>
+</footer>
+
+<script>
+    function copyText(elementId) {
+        var text = document.getElementById(elementId).innerText;
+        navigator.clipboard.writeText(text).then(function() {
+            alert('提示词已复制！');
+        }, function(err) {
+            console.error('无法复制文本: ', err);
+        });
+    }
+</script>
+
+</body>
+</html>
