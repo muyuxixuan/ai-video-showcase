@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>产品图集 - AI 创想视界</title>
+    <title>图库与数据 | 李淦的作品集</title>
     <style>
-        /* --- 基础变量 --- */
         :root {
             --bg-color: #0f0f11;
             --card-bg: #1a1a1d;
@@ -23,15 +22,16 @@
             line-height: 1.6;
         }
 
-        /* --- 头部与导航 --- */
+        /* 导航栏 (保持与主页一致) */
         header {
             text-align: center;
             padding: 3rem 1rem 1rem;
             background: linear-gradient(to bottom, #1a1a1d, #0f0f11);
+            border-bottom: 1px solid #333;
         }
 
-        h1 { margin: 0; font-size: 2.5rem; letter-spacing: 2px; }
-        p.subtitle { color: var(--text-secondary); margin-top: 10px; }
+        h1 { margin: 0; font-size: 2.2rem; letter-spacing: 2px; }
+        .subtitle { color: var(--text-secondary); margin-top: 10px; }
 
         .main-nav {
             display: flex;
@@ -39,9 +39,7 @@
             gap: 2rem;
             padding: 1.5rem 0;
             margin-bottom: 1rem;
-            border-bottom: 1px solid #333;
         }
-
         .main-nav a {
             color: var(--text-secondary);
             text-decoration: none;
@@ -49,384 +47,201 @@
             font-weight: 600;
             padding-bottom: 5px;
             border-bottom: 2px solid transparent;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
         }
+        /* 注意：这里 Images 是激活状态 */
+        .main-nav a.active { color: var(--accent-color); border-bottom-color: var(--accent-color); }
+        .main-nav a:hover { color: var(--accent-color); }
 
-        .main-nav a:hover, .main-nav a.active {
-            color: var(--accent-color);
-            border-bottom-color: var(--accent-color);
+        /* 分区标题 */
+        .section-header {
+            max-width: 1200px;
+            margin: 3rem auto 1.5rem;
+            padding: 0 2rem;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 15px;
         }
+        .section-header h2 { margin: 0; font-size: 1.5rem; color: #fff; }
+        .section-header p { margin: 5px 0 0; color: #666; font-size: 0.9rem; }
 
-        /* --- 布局容器 --- */
-        .container {
+        /* 瀑布流/网格布局 */
+        .gallery-grid {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 0 2rem;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
         }
 
-        /* --- 图片卡片样式 --- */
-        .image-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
+        .img-card {
+            background: var(--card-bg);
+            border-radius: 10px;
             overflow: hidden;
-            transition: transform 0.3s ease;
             border: 1px solid #333;
-            display: flex;
-            flex-direction: column;
+            transition: transform 0.3s ease;
+            cursor: zoom-in;
         }
+        .img-card:hover { transform: translateY(-5px); border-color: var(--accent-color); }
 
-        .image-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-        }
-
-        .image-wrapper {
+        .img-wrapper {
             width: 100%;
-            height: 300px;
+            height: 250px; /* 统一高度，整齐 */
             overflow: hidden;
             background: #000;
-            position: relative;
-            cursor: pointer;
         }
-
-        .image-wrapper img {
+        .img-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center;
-            transition: transform 0.5s ease, opacity 0.3s;
+            transition: transform 0.5s ease;
         }
+        .img-card:hover img { transform: scale(1.1); }
 
-        .image-card:hover .image-wrapper img {
-            transform: scale(1.05);
-            opacity: 0.8;
-        }
+        .img-info { padding: 1rem; }
+        .img-title { font-size: 1rem; font-weight: bold; margin: 0 0 5px; color: #eee; }
+        .img-desc { font-size: 0.85rem; color: #888; }
 
-        /* 多图指示器图标 (相册图标) */
-        .gallery-icon {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0,0,0,0.6);
-            color: #fff;
-            padding: 5px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            pointer-events: none;
-        }
-        
-        /* 仅当有 data-gallery 属性时显示图标 */
-        .image-wrapper[data-gallery] .gallery-icon {
-            display: flex;
-        }
-        
-        /* 单图时隐藏图标 */
-        .image-wrapper:not([data-gallery]) .gallery-icon {
-            display: none;
-        }
-
-        .image-wrapper::after {
-            content: '🔍 点击浏览图集';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #fff;
-            font-weight: bold;
-            background: rgba(0,0,0,0.6);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-
-        .image-card:hover .image-wrapper::after {
-            opacity: 1;
-        }
-
-        .card-content { padding: 1.5rem; flex-grow: 1; }
-        .image-title { font-size: 1.2rem; margin: 0 0 0.5rem 0; font-weight: 600; }
-        .desc-box { color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem; }
-
-        /* --- 全屏灯箱样式 (升级版) --- */
+        /* 灯箱 */
         .lightbox {
             display: none;
             position: fixed;
-            z-index: 9999;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            user-select: none;
-        }
-
-        .lightbox.active { display: flex; opacity: 1; }
-
-        /* 容器：包含图片和按钮 */
-        .lightbox-content {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .lightbox img {
-            max-width: 90%;
-            max-height: 85%;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
-            object-fit: contain;
-        }
-
-        /* 导航按钮 (左右箭头) */
-        .nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.1);
-            color: white;
-            border: none;
-            padding: 20px 15px;
-            cursor: pointer;
-            font-size: 2rem;
-            transition: background 0.3s;
-            border-radius: 4px;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
             z-index: 10000;
+            justify-content: center;
+            align-items: center;
         }
-        .nav-btn:hover { background: rgba(255,255,255,0.3); }
-        .prev-btn { left: 20px; }
-        .next-btn { right: 20px; }
-
-        /* 关闭按钮 */
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 2.5rem;
-            color: #fff;
-            cursor: pointer;
-            z-index: 10001;
-            opacity: 0.7;
-        }
-        .close-btn:hover { opacity: 1; }
-
-        /* 页码计数器 */
-        .counter {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #fff;
-            font-size: 1rem;
-            background: rgba(0,0,0,0.5);
-            padding: 5px 15px;
-            border-radius: 20px;
-        }
-
-        footer { text-align: center; padding: 2rem; color: #555; font-size: 0.9rem; }
+        .lightbox.active { display: flex; }
+        .lightbox img { max-width: 95%; max-height: 95%; object-fit: contain; }
+        
+        footer { text-align: center; padding: 3rem; color: #444; margin-top: 3rem; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>AI 创想视界</h1>
-    <p class="subtitle">探索生成式AI的无限可能 | Prompt Showcase 作者：淦</p>
+    <h1>商业图库 & 运营数据</h1>
+    <p class="subtitle">Evidence of Operation & AI Commercial Images</p>
     <nav class="main-nav">
         <a href="index.html">视频作品 (Videos)</a>
-        <a href="images.html" class="active">产品图集 (Images)</a>
+        <a href="images.html" class="active">数据与图库 (Gallery)</a>
     </nav>
 </header>
 
-<main class="container">
-
-    <!-- =========================================
-         卡片 1：单张图片示例
-         (没有 data-gallery 属性，就是普通的单图)
-    ========================================= -->
-    <article class="image-card">
-        <div class="image-wrapper" onclick="openGallery(this)">
-            <img src="images/真改了logo.png" alt="封面图">
+<!-- ================= 板块 1: 运营数据铁证 ================= -->
+<div class="section-header">
+    <h2>运营数据铁证 (Data & Operations)</h2>
+    <p>百万播放后台数据、账号矩阵管理与实操现场。</p>
+</div>
+<div class="gallery-grid">
+    <!-- 越南百万数据 -->
+    <div class="img-card" onclick="openLightbox(this)">
+        <div class="img-wrapper"><img src="images/150万+播放西瓜视频.jpg" alt="150万播放数据"></div>
+        <div class="img-info">
+            <h3 class="img-title">154万播放量后台实录</h3>
+            <p class="img-desc">西瓜举重视频真实数据，完播率51%。</p>
         </div>
-        <div class="card-content">
-            <h2 class="image-title">灰色婴儿学步车 - 细节展示</h2>
-            <div class="desc-box">
-                <p>展示学步车侧面的流线型设计。</p>
-            </div>
+    </div>
+    <div class="img-card" onclick="openLightbox(this)">
+        <div class="img-wrapper"><img src="images/160万+播放椰子视频.jpg" alt="160万播放数据"></div>
+        <div class="img-info">
+            <h3 class="img-title">161万播放量后台实录</h3>
+            <p class="img-desc">椰子举重视频真实数据，验证爆款模型。</p>
         </div>
-    </article>
-
-    <!-- =========================================
-         卡片 2：多张图片图集示例 (重点看这里！)
-         data-gallery 属性里写上所有的图片路径，用英文逗号分隔
-    ========================================= -->
-    <article class="image-card">
-        <div class="image-wrapper" 
-             onclick="openGallery(this)"
-             data-gallery="images/b564966a5cc64e58a5015b7700fcdd96~tplv-fhlh96nyum-resize-jpeg_800_800.jpeg, images/微信图片_20251112163850_47_71.jpg">
-            
-            <!-- 封面图 (只显示第一张) -->
-            <img src="images/b564966a5cc64e58a5015b7700fcdd96~tplv-fhlh96nyum-resize-jpeg_800_800.jpeg" alt="产品图集">
-            
-            <!-- 相册图标 (自动显示) -->
-            <div class="gallery-icon">
-                <span>📷</span> 图集
-            </div>
+    </div>
+    <!-- 账号矩阵 -->
+    <div class="img-card" onclick="openLightbox(this)">
+        <div class="img-wrapper"><img src="images/工作日常，最多时负责28台手机养号.jpg" alt="28台手机"></div>
+        <div class="img-info">
+            <h3 class="img-title">一人成军：28台设备实拍</h3>
+            <p class="img-desc">独立负责的账号矩阵养号现场。</p>
         </div>
-        <div class="card-content">
-            <h2 class="image-title">婴儿手推车全系列</h2>
-            <div class="desc-box">
-                <p>点击图片可查看该系列的 2 张完整细节图。</p>
-            </div>
+    </div>
+    <div class="img-card" onclick="openLightbox(this)">
+        <div class="img-wrapper"><img src="images/账号汇总截图.png" alt="账号表"></div>
+        <div class="img-info">
+            <h3 class="img-title">矩阵账号管理表</h3>
+            <p class="img-desc">墨西哥与东南亚区域分发策略总览。</p>
         </div>
-    </article>
-
-   <!-- =========================================
-         卡片 3：单张图片示例
-         (没有 data-gallery 属性，就是普通的单图)
-    ========================================= -->
-    <article class="image-card">
-        <div class="image-wrapper" onclick="openGallery(this)">
-            <img src="images/微信图片_20251203161737_17833_5.jpg" alt="封面图">
+    </div>
+    <!-- 越南号主页 -->
+    <div class="img-card" onclick="openLightbox(this)">
+        <div class="img-wrapper"><img src="images/越南百万账号主页.jpg" alt="账号主页"></div>
+        <div class="img-info">
+            <h3 class="img-title">越南起号实证</h3>
+            <p class="img-desc">单月孵化 7900+ 粉丝账号主页。</p>
         </div>
-        <div class="card-content">
-            <h2 class="image-title">迪卡侬外套</h2>
-            <div class="desc-box">
-                <p>模特展示衣服</p>
-            </div>
-        </div>
-    </article>
-
-<!-- =========================================
-         卡片 4：多张图片图集示例 (重点看这里！)
-         data-gallery 属性里写上所有的图片路径，用英文逗号分隔
-    ========================================= -->
-    <article class="image-card">
-        <div class="image-wrapper" 
-             onclick="openGallery(this)"
-             data-gallery="images/微信图片_2025-11-27_114914_581.png, images/微信图片_2025-11-27_115200_436.png, images/微信图片_2025-11-27_115322_228.png,images/微信图片_20251125102642_98_69.jpg">
-            
-            <!-- 封面图 (只显示第一张) -->
-            <img src="images/微信图片_2025-11-27_114914_581.png" alt="产品图集">
-            
-            <!-- 相册图标 (自动显示) -->
-            <div class="gallery-icon">
-                <span>📷</span> 图集
-            </div>
-        </div>
-        <div class="card-content">
-            <h2 class="image-title">黑色学步车和自制图片</h2>
-            <div class="desc-box">
-                <p>点击图片可查看该系列的 4 张完整细节图。</p>
-            </div>
-        </div>
-    </article>
-
-</main>
-
-<footer>
-    <p>© 2025 Created by Gemini Business Agent</p>
-</footer>
-
-<!-- 全屏轮播灯箱结构 -->
-<div id="lightbox" class="lightbox">
-    <span class="close-btn" onclick="closeLightbox()">&times;</span>
-    <div class="lightbox-content" onclick="if(event.target === this) closeLightbox()">
-        <button class="nav-btn prev-btn" onclick="changeImage(-1)">&#10094;</button>
-        <img id="lightbox-img" src="" alt="全屏预览">
-        <button class="nav-btn next-btn" onclick="changeImage(1)">&#10095;</button>
-        <div class="counter" id="lightbox-counter">1 / 1</div>
     </div>
 </div>
 
+<!-- ================= 板块 2: AI 商业修图与设计 ================= -->
+<div class="section-header">
+    <h2>AI 商业视觉 (Commercial AI Images)</h2>
+    <p>ComfyUI 产品光影重绘、Midjourney 创意生成。</p>
+</div>
+<div class="gallery-grid">
+    <!-- 自拍杆主图 -->
+    <div class="img-card" onclick="openLightbox(this)">
+        <div class="img-wrapper"><img src="images/ComfyUI_00001_feegd_1769395736.png" alt="自拍杆主图"></div>
+        <div class="img-info">
+            <h3 class="img-title">自拍杆 AI 场景合成</h3>
+            <p class="img-desc">ComfyUI 重绘光影，替代实拍主图。</p>
+        </div>
+    </div>
+    <div class="img-card" onclick="openLightbox(this)">
+        <div class="img-wrapper"><img src="images/ComfyUI_00001_gsipp_1769395610.png" alt="自拍杆主图2"></div>
+        <div class="img-info">
+            <h3 class="img-title">产品质感渲染</h3>
+            <p class="img-desc">室内光影下的产品质感还原。</p>
+        </div>
+    </div>
+    <!-- 耶稣图 -->
+    <div class="img-card" onclick="openLightbox(this)">
+        <div class="img-wrapper"><img src="images/18.3K耶稣原图.png" alt="耶稣图"></div>
+        <div class="img-info">
+            <h3 class="img-title">18.3K 播放爆款图</h3>
+            <p class="img-desc">Midjourney 生成的耶稣创意图，TikTok 播放量 1.8万。</p>
+        </div>
+    </div>
+</div>
+
+<!-- ================= 板块 3: 早期产品图集 (保留历史作品) ================= -->
+<div class="section-header">
+    <h2>产品细节展示 (Product Archive)</h2>
+    <p>婴儿车/学步车细节渲染（早期作品）。</p>
+</div>
+<div class="gallery-grid">
+    <div class="img-card" onclick="openLightbox(this)">
+        <div class="img-wrapper"><img src="images/真改了logo.png" alt="学步车"></div>
+        <div class="img-info">
+            <h3 class="img-title">学步车细节</h3>
+            <p class="img-desc">侧面流线型设计展示。</p>
+        </div>
+    </div>
+    <div class="img-card" onclick="openLightbox(this)">
+        <div class="img-wrapper"><img src="images/b564966a5cc64e58a5015b7700fcdd96~tplv-fhlh96nyum-resize-jpeg_800_800.jpeg" alt="系列图"></div>
+        <div class="img-info">
+            <h3 class="img-title">婴儿推车系列</h3>
+            <p class="img-desc">多角度产品展示。</p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 Created by Li Gan</p>
+</footer>
+
+<!-- 灯箱 -->
+<div id="lightbox" class="lightbox" onclick="this.classList.remove('active')">
+    <img id="lightbox-img" src="">
+</div>
+
 <script>
-    let currentImages = []; // 存储当前打开的图集图片列表
-    let currentIndex = 0;   // 当前显示的第几张
-
-    function openGallery(element) {
-        const lightbox = document.getElementById('lightbox');
-        const galleryData = element.getAttribute('data-gallery');
-        const imgTag = element.querySelector('img');
-
-        if (galleryData) {
-            // 如果有 data-gallery 属性，说明是多图，按逗号分割成数组
-            // .map(src => src.trim()) 是为了去掉逗号前后的空格
-            currentImages = galleryData.split(',').map(src => src.trim());
-        } else {
-            // 如果没有，就只有当前这一张图
-            currentImages = [imgTag.src];
-        }
-
-        currentIndex = 0; // 重置为第一张
-        updateLightboxImage(); // 更新显示
-        lightbox.classList.add('active'); // 显示灯箱
-        
-        // 添加键盘监听
-        document.addEventListener('keydown', handleKeydown);
-    }
-
-    function closeLightbox() {
-        const lightbox = document.getElementById('lightbox');
-        lightbox.classList.remove('active');
-        // 移除键盘监听
-        document.removeEventListener('keydown', handleKeydown);
-    }
-
-    function changeImage(direction) {
-        // direction: -1 是上一张, 1 是下一张
-        currentIndex += direction;
-
-        // 循环逻辑：如果是最后一张再点下一张，就回到第一张
-        if (currentIndex >= currentImages.length) {
-            currentIndex = 0;
-        } else if (currentIndex < 0) {
-            currentIndex = currentImages.length - 1;
-        }
-
-        updateLightboxImage();
-    }
-
-    function updateLightboxImage() {
-        const imgElement = document.getElementById('lightbox-img');
-        const counterElement = document.getElementById('lightbox-counter');
-        const prevBtn = document.querySelector('.prev-btn');
-        const nextBtn = document.querySelector('.next-btn');
-
-        // 更新图片源
-        imgElement.src = currentImages[currentIndex];
-        
-        // 更新页码
-        counterElement.innerText = `${currentIndex + 1} / ${currentImages.length}`;
-
-        // 如果只有一张图，隐藏左右按钮；多张图则显示
-        if (currentImages.length > 1) {
-            prevBtn.style.display = 'block';
-            nextBtn.style.display = 'block';
-            counterElement.style.display = 'block';
-        } else {
-            prevBtn.style.display = 'none';
-            nextBtn.style.display = 'none';
-            counterElement.style.display = 'none';
-        }
-    }
-
-    // 键盘按键支持 (左/右切换，Esc关闭)
-    function handleKeydown(e) {
-        if (e.key === 'ArrowLeft') changeImage(-1);
-        if (e.key === 'ArrowRight') changeImage(1);
-        if (e.key === 'Escape') closeLightbox();
+    function openLightbox(element) {
+        const imgSrc = element.querySelector('img').src;
+        document.getElementById('lightbox-img').src = imgSrc;
+        document.getElementById('lightbox').classList.add('active');
     }
 </script>
 

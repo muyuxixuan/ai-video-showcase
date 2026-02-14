@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的AI视频作品集</title>
+    <title>李淦 | AIGC 视频专家作品集</title>
     <style>
         :root {
             --bg-color: #0f0f11;
             --card-bg: #1a1a1d;
             --text-primary: #ffffff;
             --text-secondary: #a0a0a0;
-            --accent-color: #007bff;
+            --accent-color: #007bff; /* 科技蓝 */
+            --highlight-color: #ff4757; /* 爆款红 */
         }
 
         body {
@@ -22,312 +23,348 @@
             line-height: 1.6;
         }
 
+        /* --- 头部区域 --- */
         header {
             text-align: center;
-            padding: 3rem 1rem 1rem;
-            background: linear-gradient(to bottom, #1a1a1d, #0f0f11);
-        }
-
-        h1 { margin: 0; font-size: 2.5rem; letter-spacing: 2px; }
-        p.subtitle { color: var(--text-secondary); margin-top: 10px; }
-
-        .main-nav {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            padding: 1.5rem 0;
-            margin-bottom: 1rem;
+            padding: 4rem 1rem 2rem;
+            background: linear-gradient(180deg, #1a1a1d 0%, #0f0f11 100%);
             border-bottom: 1px solid #333;
         }
 
-        .main-nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 1.1rem;
+        h1 { margin: 0; font-size: 2.8rem; letter-spacing: 2px; }
+        .subtitle { color: var(--text-secondary); margin-top: 15px; font-size: 1.1rem; max-width: 800px; margin-left: auto; margin-right: auto; }
+        .highlight { color: var(--accent-color); font-weight: bold; }
+
+        /* 核心价值卡片 */
+        .value-props {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        .value-tag {
+            background: rgba(0, 123, 255, 0.1);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
             font-weight: 600;
-            padding-bottom: 5px;
-            border-bottom: 2px solid transparent;
-            transition: all 0.3s ease;
         }
 
-        .main-nav a:hover, .main-nav a.active {
-            color: var(--accent-color);
-            border-bottom-color: var(--accent-color);
+        /* 项目链接按钮组 */
+        .project-links {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
         }
+        .btn-project {
+            background: linear-gradient(45deg, #007bff, #00d2ff);
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+        .btn-project:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,123,255,0.4); }
+
+        /* --- 通用容器 --- */
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            margin: 4rem 0 2rem;
+            border-left: 5px solid var(--accent-color);
+            display: inline-block;
+            padding-left: 15px;
+        }
+        .section-container { text-align: center; } /* 让标题居中 */
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 0 2rem 4rem;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
         }
 
+        /* --- 视频卡片 --- */
         .video-card {
             background-color: var(--card-bg);
             border-radius: 12px;
             overflow: hidden;
-            transition: transform 0.3s ease;
             border: 1px solid #333;
-        }
-
-        .video-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-        }
-
-        video {
-            width: 100%;
-            display: block;
-            background: #000;
-        }
-
-        .card-content { padding: 1.5rem; }
-
-        .video-title {
-            font-size: 1.2rem;
-            margin: 0 0 1rem 0;
-            font-weight: 600;
-        }
-
-        .prompt-box {
-            background: #252529;
-            padding: 1rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
+            transition: transform 0.3s;
             position: relative;
         }
-
-        .prompt-label {
-            display: block;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            color: #666;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .copy-btn {
+        .video-card:hover { transform: translateY(-5px); border-color: var(--accent-color); }
+        
+        /* 爆款标签 */
+        .hot-tag {
             position: absolute;
             top: 10px;
             right: 10px;
-            background: #333;
-            border: none;
-            color: #fff;
+            background: var(--highlight-color);
+            color: white;
             padding: 4px 8px;
             border-radius: 4px;
-            cursor: pointer;
             font-size: 0.8rem;
-            transition: background 0.2s;
+            font-weight: bold;
+            z-index: 10;
         }
 
-        .copy-btn:hover { background: var(--accent-color); }
+        video { width: 100%; display: block; background: #000; aspect-ratio: 9/16; }
 
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: #555;
-            font-size: 0.9rem;
-        }
+        .card-content { padding: 1.2rem; text-align: left; }
+        .video-title { font-size: 1.1rem; margin: 0 0 0.5rem; font-weight: 600; color: #fff; }
+        .video-desc { font-size: 0.9rem; color: #888; margin-bottom: 1rem; }
 
-        @media (max-width: 768px) {
-            .container { padding: 1rem; }
+        /* --- 数据展示画廊 (图片) --- */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
+        .img-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid #333;
+        }
+        .img-card img { width: 100%; height: 200px; object-fit: cover; transition: transform 0.3s; }
+        .img-card:hover img { transform: scale(1.05); }
+        .img-caption { padding: 10px; font-size: 0.9rem; color: #ccc; text-align: center; }
+
+        /* 灯箱 */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox img { max-width: 90%; max-height: 90%; object-fit: contain; }
+
+        footer { text-align: center; padding: 3rem; color: #666; font-size: 0.9rem; border-top: 1px solid #333; margin-top: 3rem; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>AI 创想视界</h1>
-    <p class="subtitle">探索生成式AI的无限可能 | Prompt Showcase 作品集作者：淦</p>
-    
-    <nav class="main-nav">
-        <a href="index.html" class="active">视频作品 (Videos)</a>
-        <a href="images.html">产品图集 (Images)</a>
-    </nav>
+    <h1>AI 全栈视频专家 · 李淦</h1>
+    <p class="subtitle">
+        一人成军 | 成本替代 | 技术解决方案 <br>
+        <span style="font-size: 0.9rem; color: #666;">Seedance 2.0 / ComfyUI / 矩阵操盘 / 全栈开发</span>
+    </p>
+
+    <!-- 核心价值标签 -->
+    <div class="value-props">
+        <span class="value-tag">🚀 28账号矩阵操盘</span>
+        <span class="value-tag">🔥 单条视频160万+播放</span>
+        <span class="value-tag">💰 节省90%传统拍摄成本</span>
+        <span class="value-tag">✨ 角色/物理一致性解决</span>
+    </div>
+
+    <!-- 独立项目落地页链接 -->
+    <div class="project-links">
+        <a href="https://muyuxixuan.github.io/AE86/" target="_blank" class="btn-project">查看 AE86 产品官网</a>
+        <a href="https://muyuxixuan.github.io/K007/" target="_blank" class="btn-project">查看 K007 产品官网</a>
+    </div>
 </header>
 
+<!-- ================= 核心实战：TikTok 爆款与商业交付 ================= -->
+<div class="section-container">
+    <h2 class="section-title">TikTok 商业实战 & 爆款案例 (环金海时期)</h2>
+</div>
 <main class="container">
 
-    <!-- 视频 1：已修复路径 -->
+    <!-- 1. 椰子举重 (160万播放) -->
     <article class="video-card">
-        <video controls poster="videos/cover1.jpg">
-            <!-- 注意：这里加上了 videos/ -->
-            <source src="videos/sora_video_20251127_174747.mp4" type="video/mp4">
-            您的浏览器不支持视频播放。
+        <div class="hot-tag">🔥 160万+ 播放</div>
+        <!-- 视频文件请确保在 videos 文件夹 -->
+        <video controls poster="images/160万+播放椰子视频.jpg">
+            <source src="videos/160万+播放椰子.mp4" type="video/mp4">
         </video>
         <div class="card-content">
-            <h2 class="video-title">素人妈妈种草分享婴儿学步车（UGC感）</h2>
-            <div class="prompt-box">
-                <span class="prompt-label">Prompt / 提示词</span>
-                <p id="prompt1">Baby Walker Lifestyle Share (BIUSIKAN | Standing-Bend Grow-with-Me Demo + Cut). 100% original footage, 9:16 aspect ratio, full-screen. Two shots total: 0-10s fixed camera one continuous shot; 11-15s quick cut.0-10s: Mom pushes empty BIUSIKAN walker into frame center, stands and bends forward—wears sportswear, simple living room decor (throw pillows, potted greenery) in background. Mom (warm, relatable tone): "Mamas, this 6-in-1 walker grows with baby! Bounce mode for toddlers (presses seat softly), push mode for walkers (glides walker gently). It has interactive music lights (presses panel, lights flash), 2-speed control (taps dial), and a removable snack tray—super practical!"11-15s: [Quick cut to sunlit play area] Baby sits in the walker, barefoot and giggling, walking forward while turning smoothly—toys scattered nearby, walker’s swivel wheels gliding effortlessly. Text overlay: "6 Modes + Grow-with-Me + Practical!" + brand logo. Mom (off-camera, cheerful tone): "Grab yours now—link in bio!".</p>
-                <button class="copy-btn" onclick="copyText('prompt1')">复制</button>
-            </div>
+            <h3 class="video-title">创意脑洞：椰子举重</h3>
+            <p class="video-desc">Seedance 2.0 物理模拟，零实拍成本实现超现实创意，引爆公域流量。</p>
         </div>
     </article>
 
-    <!-- 视频 2：已修复路径 -->
+    <!-- 2. 西瓜举重 (150万播放) -->
     <article class="video-card">
-        <video controls>
-            <!-- 注意：这里加上了 videos/ -->
-            <source src="videos/12月2日 (2).mp4" type="video/mp4">
+        <div class="hot-tag">🔥 154万+ 播放</div>
+        <video controls poster="images/150万+播放西瓜视频.jpg">
+            <source src="videos/150万+播放西瓜.mp4" type="video/mp4">
         </video>
         <div class="card-content">
-            <h2 class="video-title">婴儿学步车3D动画广告</h2>
-            <div class="prompt-box">
-                <span class="prompt-label">Prompt / 提示词</span>
-                <p id="prompt2">Subject: A surreal, dreamy commercial featuring the BIUSIKAN baby walker floating in a sky made of soft pink and white clouds. 9:16 aspect ratio. 3D Animation style. Input Reference: Use the uploaded product image to accurately render the walker's shape, the music tray, and the wheels. 0-5s (The Soft Landing): The BIUSIKAN walker slowly descends from the sky and lands on a giant, fluffy cloud. The wheels touch the cloud, and it bounces softly, visualizing the "shock absorption" and comfort. 5-10s (The Glide): The walker glides forward through the air. The wheels rotate smoothly. Bubbles float out from the music tray area, creating a magical atmosphere. The movement is incredibly smooth to symbolize the "easy glide" feature. 10-15s (The Close-up): Camera zooms in on the music tray (match the uploaded image details). The lights on the tray twinkle in sync with the dreamy atmosphere. Text appears in 3D among the clouds: "Walking on Clouds. BIUSIKAN."</p>
-                <button class="copy-btn" onclick="copyText('prompt2')">复制</button>
-            </div>
+            <h3 class="video-title">创意脑洞：西瓜深蹲</h3>
+            <p class="video-desc">同系列爆款复刻，验证了 AI 创意模型的可复制性与稳定性。</p>
         </div>
     </article>
 
-    <!-- 视频 3：已修复路径 -->
+    <!-- 3. 宝宝叫爸爸 (情感共鸣) -->
     <article class="video-card">
+        <div class="hot-tag">📈 涨粉利器</div>
         <video controls>
-            <!-- 注意：这里加上了 videos/ -->
-            <source src="videos/FlashVSR_00001-audio.mp4" type="video/mp4">
+            <source src="videos/0107宝14.mp4" type="video/mp4">
         </video>
         <div class="card-content">
-            <h2 class="video-title">硬核婴儿手推车广告宣传片</h2>
-            <div class="prompt-box">
-                <span class="prompt-label">Prompt / 提示词</span>
-                <p id="prompt3">6-in-1 Convertible Baby Stroller with Bassinet Mode - Toddler Stroller w/Footmuff, Rain Cover, Cup Holder & Large Storage, Newborn Stroller w/All-Scene Large Wheels, Reversible Seat(Black).</p>
-                <button class="copy-btn" onclick="copyText('prompt3')">复制</button>
-            </div>
+            <h3 class="video-title">宝宝叫爸爸 (情感类)</h3>
+            <p class="video-desc">精准捕捉母婴情感痛点，利用 AI 生成高保真人物表情，快速起号。</p>
         </div>
     </article>
 
-    <!-- 视频 4：已修复路径 & ID -->
+    <!-- 4. 宝宝吃东西 (特写一致性) -->
     <article class="video-card">
         <video controls>
-            <!-- 注意：这里加上了 videos/ -->
-            <source src="videos/sora_video_20251202_104745.mp4" type="video/mp4">
+            <source src="videos/0117 (5)宝20.mp4" type="video/mp4">
         </video>
         <div class="card-content">
-            <h2 class="video-title">婴儿学步车广告 - 安全与活力篇</h2>
-            <div class="prompt-box">
-                <span class="prompt-label">Prompt / 提示词</span>
-                <!-- 这里修改了id，从 prompt3 改为 prompt4 -->
-                <p id="prompt4">Subject: A high-energy, colorful video focusing on the stability and music features of the BIUSIKAN baby walker. 9:16 aspect ratio. Input Reference: Strictly maintain the wide base chassis design from the uploaded image. Visual Narrative: A "Safety vs. Energy" contrast. 0-5s (The Party Mode): Close-up on the music toy tray. The buttons are being pressed (by invisible hands or baby hands), and the tray lights up with colorful LED rhythms. The atmosphere turns into a mini disco with fun lighting effects reflecting off the plastic. 5-10s (The Bounce Test): The camera pulls back to show the whole walker. A baby (or a cute energetic puppy) is bouncing vigorously inside the seat. The seat springs up and down dynamically, BUT the wide bottom chassis stays glued to the floor. 10-15s (The Safety Shield): A glowing, semi-transparent blue "shield" graphic effects briefly appears around the base of the walker, visualizing the "Anti-Rollover Protection." Text overlay pops up with a shield icon: "Safety First. Zero Tipping." The walker stays rock solid.</p>
-                <button class="copy-btn" onclick="copyText('prompt4')">复制</button>
-            </div>
+            <h3 class="video-title">宝宝吃播特写</h3>
+            <p class="video-desc">解决 AI 生成中面部一致性与食物交互的难点。</p>
         </div>
     </article>
 
- <!-- 视频 5：已修复路径 & ID -->
-    <article class="video-card">
+     <!-- 5. 小孩跳舞 (动态捕捉) -->
+     <article class="video-card">
         <video controls>
-            <!-- 注意：这里加上了 videos/ -->
-            <source src="videos/user-cDFA3hbi4k15zr9VxlIaKPzz_gen_01kbhphd57ecb8zt7949srmgpw.mp4" type="video/mp4">
+            <source src="videos/0116 (2)小孩跳舞1.mp4" type="video/mp4">
         </video>
         <div class="card-content">
-            <h2 class="video-title">迪卡侬外套</h2>
-            <div class="prompt-box">
-                <span class="prompt-label">Prompt / 提示词</span>
-                <!-- 这里修改了id，从 prompt3 改为 prompt4 -->
-                <p id="prompt5"></p>
-                <button class="copy-btn" onclick="copyText('prompt5')">复制</button>
-            </div>
+            <h3 class="video-title">AI 萌娃跳舞</h3>
+            <p class="video-desc">Seedance 2.0 强项展示，肢体动作流畅自然，替代真人童模拍摄。</p>
         </div>
     </article>
 
-<!-- 视频 6：已修复路径 & ID -->
+    <!-- 6. 越南数字人 (大文件) -->
     <article class="video-card">
+        <div class="hot-tag">🤖 AI 数字人</div>
         <video controls>
-            <!-- 注意：这里加上了 videos/ -->
-            <source src="videos/sora_video_20251203_115448.mp4" type="video/mp4">
+            <!-- 请确保文件名完全一致 -->
+            <source src="videos/0113_(1)越南CCD数字人口播-compressed-file-converter-online.com.mp4" type="video/mp4">
         </video>
         <div class="card-content">
-            <h2 class="video-title">Vlog式日常出行-婴儿手推车</h2>
-            <div class="prompt-box">
-                <span class="prompt-label">Prompt / 提示词</span>
-                <!-- 这里修改了id，从 prompt3 改为 prompt4 -->
-                <p id="prompt6"></p>
-                <button class="copy-btn" onclick="copyText('prompt6')">复制</button>
-            </div>
+            <h3 class="video-title">越南语数字人带货</h3>
+            <p class="video-desc">解决小语种主播招聘难问题，口型匹配度 95%+，实现 24小时无人直播素材供给。</p>
         </div>
     </article>
 
-<!-- 视频 7：已修复路径 & ID -->
+    <!-- 7. 墨西哥手写板 (大文件) -->
     <article class="video-card">
+        <div class="hot-tag">🤖 AI 数字人</div>
         <video controls>
-            <!-- 注意：这里加上了 videos/ -->
-            <source src="videos/12月3日.mp4" type="video/mp4">
+            <!-- 请确保文件名完全一致 -->
+            <source src="videos/0120_(1)墨西哥手写板口播-compressed-file-converter-online.com.mp4" type="video/mp4">
         </video>
         <div class="card-content">
-            <h2 class="video-title">家庭亲子乐趣-婴儿学步车</h2>
-            <div class="prompt-box">
-                <span class="prompt-label">Prompt / 提示词</span>
-                <!-- 这里修改了id，从 prompt3 改为 prompt4 -->
-                <p id="prompt7">Subject: A hilarious 10-second home video clip of a toddler cosplaying as a "Bucket Head Zombie" inside the BIUSIKAN baby walker. 9:16 aspect ratio.
-
-Input Reference: Use the uploaded walker image. The focus is on the funny interaction, not just the product.
-
-Visual Narrative:
-
-0-5s: A cute toddler is sitting in the walker. They are wearing a silver metal bucket upside down on their head like a helmet (eyes are covered, creating a comedic blind effect). The toddler raises both arms forward like a zombie.
-
-5-10s: The toddler starts "chasing" the camera man (Dad). The walker glides effortlessly across the living room floor. The movement is funny and wobbly but fast. The baby makes a cute grasping motion.
-
-Style & Atmosphere: Amateur phone camera style, shaky handheld feel, bright indoor lighting. Pure comedy.</p>
-                <button class="copy-btn" onclick="copyText('prompt7')">复制</button>
-            </div>
+            <h3 class="video-title">墨西哥西语口播</h3>
+            <p class="video-desc">低成本生成本地化营销视频，手写板场景植入增强真实感。</p>
         </div>
     </article>
 
-<!-- 视频 8：已修复路径 & ID -->
+    <!-- 8. 家装设计 - 杰作1 (大文件) -->
     <article class="video-card">
+        <div class="hot-tag">🏠 跨行业应用</div>
         <video controls>
-            <!-- 注意：这里加上了 videos/ -->
-            <source src="videos/sora_video_20251203_100702.mp4" type="video/mp4">
+            <source src="videos/0211杰作1.mp4" type="video/mp4">
         </video>
         <div class="card-content">
-            <h2 class="video-title">史诗级大片氛围感-婴儿手推车</h2>
-            <div class="prompt-box">
-                <span class="prompt-label">Prompt / 提示词</span>
-                <!-- 这里修改了id，从 prompt3 改为 prompt4 -->
-                <p id="prompt8"></p>
-                <button class="copy-btn" onclick="copyText('prompt8')">复制</button>
-            </div>
+            <h3 class="video-title">全屋家装设计漫游 I</h3>
+            <p class="video-desc">为家装行业提供的 AI 视频引流方案，展示空间光影与材质细节。</p>
         </div>
     </article>
 
-<!-- 视频 9：已修复路径 & ID -->
+    <!-- 9. 家装设计 - 杰作2 (大文件) -->
     <article class="video-card">
+        <div class="hot-tag">🏠 跨行业应用</div>
         <video controls>
-            <!-- 注意：这里加上了 videos/ -->
-            <source src="videos/sora_video_20251201_143402.mp4" type="video/mp4">
+            <source src="videos/0211杰作2.mp4" type="video/mp4">
         </video>
         <div class="card-content">
-            <h2 class="video-title">婴儿手推车公路片-美国亚利桑那州大峡谷</h2>
-            <div class="prompt-box">
-                <span class="prompt-label">Prompt / 提示词</span>
-                <!-- 这里修改了id，从 prompt3 改为 prompt4 -->
-                <p id="prompt9">Road Movie Style - Mom & Baby Stroller at Arizona Grand Canyon TikTok Style. 9:16 vertical frame, full-screen visuals throughout. No freezing frames. Video includes casual mom dialogue + ambient sounds. The stroller remains unchanged in appearance (no original reference image shown in video). Do NOT show folding, handle adjustment, or cradle direction adjustment (cut to change direction).0-3s:Scene: Mom pushes the stroller (baby sitting in cradle mode, wearing a sunhat) along the Grand Canyon’s South Rim trail, with the vast canyon landscape stretching in the background.Dialogue (Mom, amazed): “This view is breathtaking—and the stroller glides so well on gravel trails!”Sound/SFX: ASMR gravel trail roll + distant wind + baby’s babble
-3-8s:Scene: The stroller moves steadily over the trail’s loose gravel and small rock patches, staying stable even on gentle inclines. Mom stops to let the camera capture the canyon and the stroller.Dialogue (Mom, grinning): “Even on gravel inclines, it’s so easy to control—perfect for our road trip!”Sound/SFX: Incline roll + wind howling softly
-8-15s:Scene: Cut to the stroller (baby lying down, napping) moving along a paved section of the trail, with colorful canyon cliffs in the background. The stroller glides over the pavement smoothly.Text Overlay: Gravel/Incline Stability + Road Trip EssentialSound/SFX: Pavement roll + distant tourist laughs + wind rustle</p>
-                <button class="copy-btn" onclick="copyText('prompt9')">复制</button>
-            </div>
+            <h3 class="video-title">全屋家装设计漫游 II</h3>
+            <p class="video-desc">替代传统 3D 渲染动画，大幅缩短制作周期，提升交付效率。</p>
         </div>
     </article>
 
 </main>
 
+<!-- ================= 运营数据铁证 (图片画廊) ================= -->
+<div class="section-container">
+    <h2 class="section-title">运营数据铁证 & 28台设备矩阵现场</h2>
+</div>
+<div class="image-gallery">
+    <!-- 数据图 1 -->
+    <div class="img-card" onclick="openLightbox(this)">
+        <img src="images/160万+播放椰子视频.jpg" alt="160万播放后台数据">
+        <div class="img-caption">160万+ 播放量后台真实数据</div>
+    </div>
+    <!-- 数据图 2 -->
+    <div class="img-card" onclick="openLightbox(this)">
+        <img src="images/150万+播放西瓜视频.jpg" alt="150万播放后台数据">
+        <div class="img-caption">154万+ 播放量后台真实数据</div>
+    </div>
+    <!-- 越南号主页 -->
+    <div class="img-card" onclick="openLightbox(this)">
+        <img src="images/越南百万账号主页.jpg" alt="越南账号主页截图">
+        <div class="img-caption">越南起号实证：单号 7900+ 粉丝</div>
+    </div>
+    <!-- 矩阵现场 -->
+    <div class="img-card" onclick="openLightbox(this)">
+        <img src="images/工作日常，最多时负责28台手机养号.jpg" alt="28台手机矩阵运营现场">
+        <div class="img-caption">一人成军：28台手机矩阵运营实拍</div>
+    </div>
+     <!-- 账号汇总 -->
+     <div class="img-card" onclick="openLightbox(this)">
+        <img src="images/账号汇总截图.png" alt="账号ID汇总">
+        <div class="img-caption">墨西哥/东南亚账号矩阵管理表</div>
+    </div>
+</div>
+
+<!-- ================= 早期探索：AIGC 风格化 (企禾时期) ================= -->
+<div class="section-container">
+    <h2 class="section-title" style="border-color: #666; color: #aaa;">AIGC 风格化探索 (早期作品)</h2>
+</div>
+<main class="container">
+    <!-- 这里保留你原来的企禾视频，我放一个示例，其他的你可以照着复制 -->
+    <article class="video-card" style="opacity: 0.8;">
+        <video controls poster="videos/cover1.jpg">
+            <source src="videos/sora_video_20251127_174747.mp4" type="video/mp4">
+        </video>
+        <div class="card-content">
+            <h3 class="video-title">素人妈妈种草 (UGC感)</h3>
+            <p class="video-desc">早期在企禾科技制作的母婴类目 AI 视频。</p>
+        </div>
+    </article>
+    <!-- 你原来的其他视频代码可以粘贴在这里 -->
+    
+</main>
+
 <footer>
-    <p>© 2025 Created by Gemini Business Agent</p>
+    <p>© 2026 Created by Li Gan | AI Full Stack Creator</p>
 </footer>
 
+<!-- 图片放大灯箱 -->
+<div id="lightbox" class="lightbox" onclick="this.classList.remove('active')">
+    <img id="lightbox-img" src="">
+</div>
+
 <script>
-    function copyText(elementId) {
-        var text = document.getElementById(elementId).innerText;
-        navigator.clipboard.writeText(text).then(function() {
-            alert('提示词已复制！');
-        }, function(err) {
-            console.error('无法复制文本: ', err);
-        });
+    function openLightbox(element) {
+        const imgSrc = element.querySelector('img').src;
+        document.getElementById('lightbox-img').src = imgSrc;
+        document.getElementById('lightbox').classList.add('active');
     }
 </script>
 
